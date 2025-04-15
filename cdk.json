@@ -92,6 +92,13 @@
         "alias": "live",
         "stage": "qa"
       },
+      "repository": {
+        "name": "cdk_workshop",
+        "branch": "feature/pipeline"
+      },
+      "pipeline": {
+        "name": "cdk-workshop-cdk-pipeline"
+      },
       "tags": {
         "App":"cdk-workshop",
         "Environment": "QA",
