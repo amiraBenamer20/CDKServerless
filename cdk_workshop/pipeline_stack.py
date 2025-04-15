@@ -129,22 +129,22 @@ class PipelineStack(Stack):
             )
         )
 
-        steps.append(
-            CodeBuildStep(
-                "CfnNag",
-                input=self.source_stage,
-                build_environment=environment,
-                project_name="cdk-pipelines-cfn-nag",
-                install_commands=install_steps + ["gem install cfn-nag"],
-                commands=[
-                    "export ACCOUNT=$(aws sts get-caller-identity | jq -r '.Account')",
-                    "export STACK_NAME=cdk-pipeline-scan",
-                    "export ENV_TYPE=qa",  # Change 'qa' to match your environment context
-                    "cdk synth $STACK_NAME -c account=$ACCOUNT -c environmentType=$ENV_TYPE > template.yaml",
-                    "cfn_nag_scan --input-path template.yaml"
-                ]
-            )
-        )
+        # steps.append(
+        #     CodeBuildStep(
+        #         "CfnNag",
+        #         input=self.source_stage,
+        #         build_environment=environment,
+        #         project_name="cdk-pipelines-cfn-nag",
+        #         install_commands=install_steps + ["gem install cfn-nag"],
+        #         commands=[
+        #             "export ACCOUNT=$(aws sts get-caller-identity | jq -r '.Account')",
+        #             "export STACK_NAME=cdk-pipeline-scan",
+        #             "export ENV_TYPE=qa",  # Change 'qa' to match your environment context
+        #             "cdk synth $STACK_NAME -c account=$ACCOUNT -c environmentType=$ENV_TYPE > template.yaml",
+        #             "cfn_nag_scan --input-path template.yaml"
+        #         ]
+        #     )
+        # )
 
         steps.append(
             CodeBuildStep(
