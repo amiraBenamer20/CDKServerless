@@ -83,6 +83,22 @@
     "@aws-cdk/core:enableAdditionalMetadataCollection": true,
     "@aws-cdk/aws-lambda:createNewPoliciesWithAddToRolePolicy": true,
     "@aws-cdk/aws-s3:setUniqueReplicationRoleName": true,
-    "@aws-cdk/aws-events:requireEventBusPolicySid": true
+    "@aws-cdk/aws-events:requireEventBusPolicySid": true,
+    "prefix": "cdk-workshop-stack",
+    "qa": {
+      "region": "eu-west-3",
+      "lambda": {
+        "name": "cdk-workshop-function-qa",
+        "alias": "live",
+        "stage": "qa"
+      },
+      "tags": {
+        "App":"cdk-workshop",
+        "Environment": "QA",
+        "IaC": "CDK"
+      }
+    },
+    "prod": {
+    }
   }
 }

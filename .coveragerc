@@ -1,0 +1,13 @@
+[run]
+omit =
+    app.py
+    .venv/*
+    __init__.py
+    .env/*
+    tests/conftest.py
+    lambda/*
+source =
+    .
+
+[report]
+fail_under = 100
