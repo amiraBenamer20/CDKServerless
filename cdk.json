@@ -93,7 +93,7 @@
         "stage": "qa"
       },
       "repository": {
-        "name": "cdk_workshop",
+        "name": "amiraBenamer20/CDKServerless",
         "branch": "feature/pipeline"
       },
       "pipeline": {

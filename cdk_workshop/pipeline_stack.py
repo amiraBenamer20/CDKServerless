@@ -6,6 +6,8 @@ from aws_cdk.pipelines import (
     ShellStep,
     CodeBuildStep
 )
+ 
+
 from aws_cdk.aws_codebuild import (
     BuildEnvironment,
     LinuxBuildImage,
@@ -25,10 +27,10 @@ class PipelineStack(Stack):
 
         # GitHub as source
         self.source_stage = Source.git_hub(
-            repo_string=self.context["repository"]["repo"],  # e.g., "username/repo"
+            repo_string=self.context["repository"]["name"],  # e.g., "username/repo"
             branch=self.context["repository"]["branch"],
             authentication=SecretValue.secrets_manager("github-token"),  # stored in Secrets Manager
-            trigger=Source.git_hub_trigger.POLL  # or WEBHOOK if you want
+
         )
 
         pipeline = CodePipeline(self, "Pipeline",
