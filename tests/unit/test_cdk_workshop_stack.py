@@ -9,7 +9,7 @@ contextMock = {
     "prefix": "cdk-workshop-stack",
     "account": str(random.randint(111111111111,999999999999)),
     "qa": {
-        "region": "us-east-1",
+        "region": "eu-west-3",
         "lambda": {
             "name": "cdk-workshop-function",
             "alias": "live",

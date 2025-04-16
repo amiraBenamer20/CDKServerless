@@ -5,6 +5,7 @@ from aws_cdk.aws_lambda import Function, Runtime, Code, Alias, VersionOptions
 from aws_cdk.aws_apigateway import LambdaRestApi, StageOptions
 from aws_cdk.aws_cloudwatch import Alarm, ComparisonOperator
 from aws_cdk.aws_codedeploy import LambdaDeploymentGroup, LambdaDeploymentConfig
+from aws_cdk import aws_iam as iam
 
 class CdkWorkshopStack(Stack):
 
@@ -60,10 +61,21 @@ class CdkWorkshopStack(Stack):
             comparison_operator = ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
         )
 
+        codedeploy_role = iam.Role(
+            self, "CanaryDeploymentServiceRole",
+            assumed_by=iam.ServicePrincipal(f"codedeploy.{self.region}.amazonaws.com"),
+            managed_policies=[
+                iam.ManagedPolicy.from_aws_managed_policy_name(
+                    "service-role/AWSCodeDeployRoleForLambdaLimited"
+                )
+            ]
+        )
+
         LambdaDeploymentGroup(
             scope = self,
             id = "CanaryDeployment",
             alias = alias,
             deployment_config = LambdaDeploymentConfig.CANARY_10_PERCENT_5_MINUTES,
-            alarms = [failure_alarm]
+            alarms = [failure_alarm],
+            role = codedeploy_role
         )
