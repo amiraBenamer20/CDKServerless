@@ -1,0 +1,16 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - npm install -g aws-cdk
+      - cdk --version
+      - python3 -m venv .env
+      - chmod +x .env/bin/activate
+      - . .env/bin/activate
+      - pip3 install -r requirements.txt
+  pre_build:
+    commands:
+      - ACCOUNT=$(aws sts get-caller-identity | jq -r '.Account')
+  build:
+    commands:
+      - cdk deploy -c account=$ACCOUNT -c environmentType=qa --require-approval never
